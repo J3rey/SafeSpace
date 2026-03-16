@@ -16,96 +16,100 @@
               <div class="row g-4">
                 <div class="col-12 col-lg-6">
                   <div class="tools-section" role="region" aria-labelledby="guides-heading">
-                    <div class="section-header d-flex flex-column flex-md-row align-items-center text-center text-md-start">
-                      <div class="section-icon me-0 me-md-3 mb-2 mb-md-0" aria-hidden="true">📋</div>
-                      <h2 id="guides-heading" class="section-title">Step-by-Step Guides</h2>
+                    <div class="section-surface p-3 p-md-4 h-100">
+                      <div class="section-header d-flex flex-column flex-md-row align-items-center text-center text-md-start">
+                        <div class="section-icon me-0 me-md-3 mb-2 mb-md-0" aria-hidden="true">📋</div>
+                        <h2 id="guides-heading" class="section-title">Step-by-Step Guides</h2>
+                      </div>
+
+                      <nav class="guides-list" aria-label="Step-by-step guides navigation">
+                        <div class="guide-item">
+                          <button
+                            class="guide-btn surface-card"
+                            @click="openGuide('wellbeing-map')"
+                            aria-label="Open Wellbeing Map guide"
+                          >
+                            Wellbeing Map
+                          </button>
+                        </div>
+
+                        <div class="guide-item">
+                          <button
+                            class="guide-btn surface-card"
+                            @click="openGuide('healthy-sleep-habits')"
+                            aria-label="Open Building Healthy Sleep Habits guide"
+                          >
+                            Building Healthy Sleep Habits
+                          </button>
+                        </div>
+
+                        <div class="guide-item">
+                          <button
+                            class="guide-btn surface-card"
+                            @click="openGuide('managing-stress')"
+                            aria-label="Open Managing Stress guide"
+                          >
+                            Managing Stress
+                          </button>
+                        </div>
+
+                        <div class="guide-item">
+                          <button
+                            class="guide-btn surface-card"
+                            @click="openGuide('daily-positivity')"
+                            aria-label="Open Daily Positivity Message guide"
+                          >
+                            Daily Positivity Message
+                          </button>
+                        </div>
+
+                        <div class="guide-item">
+                          <button
+                            class="guide-btn surface-card"
+                            @click="openGuide('mindful-reading')"
+                            aria-label="Open Mindful Reading guide"
+                          >
+                            Mindful Reading
+                          </button>
+                        </div>
+                      </nav>
                     </div>
-
-                    <nav class="guides-list" aria-label="Step-by-step guides navigation">
-                      <div class="guide-item">
-                        <button
-                          class="guide-btn surface-card"
-                          @click="openGuide('wellbeing-map')"
-                          aria-label="Open Wellbeing Map guide"
-                        >
-                          Wellbeing Map
-                        </button>
-                      </div>
-
-                      <div class="guide-item">
-                        <button
-                          class="guide-btn surface-card"
-                          @click="openGuide('healthy-sleep-habits')"
-                          aria-label="Open Building Healthy Sleep Habits guide"
-                        >
-                          Building Healthy Sleep Habits
-                        </button>
-                      </div>
-
-                      <div class="guide-item">
-                        <button
-                          class="guide-btn surface-card"
-                          @click="openGuide('managing-stress')"
-                          aria-label="Open Managing Stress guide"
-                        >
-                          Managing Stress
-                        </button>
-                      </div>
-
-                      <div class="guide-item">
-                        <button
-                          class="guide-btn surface-card"
-                          @click="openGuide('daily-positivity')"
-                          aria-label="Open Daily Positivity Message guide"
-                        >
-                          Daily Positivity Message
-                        </button>
-                      </div>
-
-                      <div class="guide-item">
-                        <button
-                          class="guide-btn surface-card"
-                          @click="openGuide('mindful-reading')"
-                          aria-label="Open Mindful Reading guide"
-                        >
-                          Mindful Reading
-                        </button>
-                      </div>
-                    </nav>
                   </div>
                 </div>
 
                 <div class="col-12 col-lg-6">
                   <div class="tools-section" role="region" aria-labelledby="challenge-heading">
-                    <div class="section-header d-flex flex-column flex-md-row align-items-center text-center text-md-start">
-                      <div class="section-icon me-0 me-md-3 mb-2 mb-md-0" aria-hidden="true">⭐</div>
-                      <h2 id="challenge-heading" class="section-title">Daily Challenge</h2>
-                    </div>
+                    <div class="section-surface p-3 p-md-4 h-100">
+                      <div class="section-header d-flex flex-column flex-md-row align-items-center text-center text-md-start">
+                        <div class="section-icon me-0 me-md-3 mb-2 mb-md-0" aria-hidden="true">⭐</div>
+                        <h2 id="challenge-heading" class="section-title">Daily Challenge</h2>
+                      </div>
 
-                    <div class="challenge-card surface-card h-100">
-                      <div class="challenge-content">
-                        <div class="challenge-text">
-                          <p>{{ dailyChallenge.text }}</p>
+                      <div class="challenge-card h-100">
+                        <div class="challenge-content">
+                          <div class="challenge-text">
+                            <p>{{ dailyChallenge.text }}</p>
+                          </div>
+
+                          <div class="challenge-actions d-flex flex-column flex-md-row gap-3">
+                            <button
+                              class="btn btn-brand challenge-complete-btn"
+                              @click="completeChallenge"
+                              :disabled="challengeCompleted"
+                            >
+                              {{ challengeCompleted ? "✅ Completed!" : "Mark as Complete" }}
+                            </button>
+
+                            <button
+                              class="btn btn-ghost challenge-new-btn"
+                              @click="generateNewChallenge"
+                              :disabled="loading"
+                            >
+                              {{ loading ? "Loading..." : "New Challenge" }}
+                            </button>
+                          </div>
+                          <div v-if="fetchError" class="mt-2 text-danger">{{ fetchError }}</div>
                         </div>
-
-                        <div class="challenge-actions d-flex flex-column flex-md-row gap-3">
-                          <button
-                            class="btn btn-brand challenge-complete-btn"
-                            @click="completeChallenge"
-                            :disabled="challengeCompleted"
-                          >
-                            {{ challengeCompleted ? "✅ Completed!" : "Mark as Complete" }}
-                          </button>
-
-                          <button
-                            class="btn btn-ghost challenge-new-btn"
-                            @click="generateNewChallenge"
-                            :disabled="loading"
-                          >
-                            {{ loading ? "Loading..." : "New Challenge" }}
-                          </button>
-                        </div>
-                        <div v-if="fetchError" class="mt-2 text-danger">{{ fetchError }}</div>
                       </div>
                     </div>
                   </div>
@@ -303,6 +307,13 @@ export default {
   height: 100%;
 }
 
+.section-surface {
+  background: var(--surface-strong, #ffffff);
+  border: 1px solid rgba(44, 110, 178, 0.12);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft, 0 10px 24px rgba(44, 110, 178, 0.12));
+}
+
 .section-header {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
@@ -354,9 +365,10 @@ export default {
   border-radius: 16px;
   padding: 1.5rem;
   height: 100%;
-  min-height: 200px;
+  min-height: 240px;
   display: flex;
   align-items: center;
+  background: transparent;
 }
 
 .challenge-content {
