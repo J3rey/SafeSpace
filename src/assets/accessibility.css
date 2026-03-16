@@ -5,11 +5,65 @@
   box-sizing: border-box;
 }
 
+:root {
+  --brand-primary: #2c6eb2;
+  --brand-secondary: #74a9d8;
+  --brand-accent: #a8c8e4;
+  --surface: #eaf2fa;
+  --surface-strong: #ffffff;
+  --text-primary: #0f172a;
+  --text-muted: #475569;
+  --radius-base: 16px;
+  --shadow-soft: 0 10px 24px rgba(44, 110, 178, 0.12);
+  --gradient-soft: linear-gradient(135deg, rgba(44, 110, 178, 0.12), rgba(116, 169, 216, 0.12));
+}
+
+/* Shared UI primitives for consistency */
+.surface-card {
+  background: var(--surface-strong);
+  border: 1px solid rgba(44, 110, 178, 0.12);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-brand {
+  background: var(--brand-primary);
+  color: #fff;
+  border: 1px solid var(--brand-primary);
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-ghost {
+  background: #fff;
+  color: var(--brand-primary);
+  border: 1px solid rgba(44, 110, 178, 0.25);
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-brand:hover,
+.btn-ghost:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 #app {

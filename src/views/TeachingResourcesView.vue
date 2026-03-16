@@ -6,12 +6,73 @@
       <div class="container-fluid px-3">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10 col-xl-9">
-            <div class="content-wrapper p-3 p-md-5">
+            <div class="content-wrapper surface-card p-3 p-md-5">
               <!-- Header Section -->
               <div class="page-header text-center mb-5">
                 <div class="header-icon mb-3">📚</div>
                 <h1 class="page-title">Teaching Resources</h1>
                 <p class="page-subtitle">Comprehensive materials to support mental health education in your classroom</p>
+              </div>
+
+              <div class="row g-3 g-md-4 mb-4">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="resource-card surface-card h-100" aria-label="Lesson plans">
+                    <div class="resource-icon" aria-hidden="true">🗂️</div>
+                    <div class="resource-title">Lesson bundles (45-60 min)</div>
+                    <p class="resource-description">Ready-to-use slides, scripts, and student handouts for stress, sleep, and digital wellbeing.</p>
+                    <ul class="resource-items">
+                      <li>Intro to emotions (grades 6–9)</li>
+                      <li>Grounding and breathing practice</li>
+                      <li>Healthy online boundaries</li>
+                    </ul>
+                    <button class="btn btn-brand w-100" type="button">Download ZIP</button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="resource-card surface-card h-100" aria-label="Classroom scripts">
+                    <div class="resource-icon" aria-hidden="true">🗣️</div>
+                    <div class="resource-title">Scripts for tough moments</div>
+                    <p class="resource-description">Concise language for check-ins, de-escalation, and caregiver calls that keeps students safe and respected.</p>
+                    <ul class="resource-items">
+                      <li>One-minute emotional check-in</li>
+                      <li>De-escalation phrases</li>
+                      <li>Caregiver outreach templates</li>
+                    </ul>
+                    <button class="btn btn-brand w-100" type="button">Download PDF</button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="resource-card surface-card h-100" aria-label="Data and reporting">
+                    <div class="resource-icon" aria-hidden="true">📈</div>
+                    <div class="resource-title">Data and reporting aids</div>
+                    <p class="resource-description">Simple forms to log observations, note handoffs, and capture follow-up plans that comply with school policy.</p>
+                    <ul class="resource-items">
+                      <li>Observation log (print + digital)</li>
+                      <li>Warm handoff form</li>
+                      <li>Re-entry plan template</li>
+                    </ul>
+                    <button class="btn btn-brand w-100" type="button">Get templates</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-section">
+                <div class="row g-3 g-md-4 align-items-stretch">
+                  <div class="col-12 col-lg-6">
+                    <div class="info-card surface-card h-100">
+                      <h4>Training and PD</h4>
+                      <p>Request a 45-minute virtual training on crisis response, trauma-informed communication, and classroom de-escalation.</p>
+                      <button class="btn btn-ghost" type="button">Request training</button>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="info-card surface-card h-100">
+                      <h4>Monthly educator newsletter</h4>
+                      <p>Lesson drops, conversation starters, and policy updates curated for advisors and teachers.</p>
+                      <button class="btn btn-ghost" type="button">Join the list</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -40,9 +101,8 @@ export default {
 }
 
 .content-wrapper {
-  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 .page-header {
@@ -68,18 +128,16 @@ export default {
 }
 
 .resource-card {
-  background-color: #f8f9fa;
-  border: 2px solid #e9ecef;
   border-radius: 12px;
   padding: 2rem;
   height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-align: center;
 }
 
 .resource-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft, 0 10px 24px rgba(44, 110, 178, 0.12));
 }
 
 .resource-icon {
@@ -122,22 +180,7 @@ export default {
   left: 0;
 }
 
-.resource-btn {
-  background-color: #007bff;
-  border: 2px solid #007bff;
-  color: white;
-  border-radius: 25px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-}
 
-.resource-btn:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
 
 .emergency-btn {
   background-color: #dc3545;
@@ -155,7 +198,6 @@ export default {
 }
 
 .info-card {
-  background-color: #f8f9fa;
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
@@ -173,21 +215,6 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-.contact-btn, .newsletter-btn {
-  background-color: #28a745;
-  border: 2px solid #28a745;
-  color: white;
-  border-radius: 25px;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.contact-btn:hover, .newsletter-btn:hover {
-  background-color: #218838;
-  border-color: #218838;
-}
 
 
 </style>

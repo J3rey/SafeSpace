@@ -15,6 +15,11 @@ import JournalLogView from "../views/JournalLogView.vue";
 import AdminDashboardView from "../views/AdminDashboardView.vue";
 import AboutUsView from "../views/AboutUsView.vue";
 import DonationStatisticsView from "../views/DonationStatisticsView.vue";
+import SupportResourcesView from "../views/SupportResourcesView.vue";
+import CommunityChatView from "../views/CommunityChatView.vue";
+import ProfileSettingsView from "../views/ProfileSettingsView.vue";
+import MoodTrackingView from "../views/MoodTrackingView.vue";
+import NotificationsView from "../views/NotificationsView.vue";
 import { auth } from "../main.js";
 import { authState } from "../services/authService.js";
 import DonateNowView from "@/views/DonateNowView.vue";
@@ -102,7 +107,8 @@ const routes = [
     },
   },
   {
-    path: "/DonateNow",
+    path: "/donate-now",
+    alias: "/DonateNow",
     name: "DonateNow",
     component: DonateNowView,
   },
@@ -117,6 +123,24 @@ const routes = [
     component: DonationStatisticsView,
   },
   {
+    path: "/support-resources",
+    name: "SupportResources",
+    component: SupportResourcesView,
+  },
+  {
+    path: "/community-chat",
+    name: "CommunityChat",
+    component: CommunityChatView,
+  },
+  {
+    path: "/profile",
+    name: "ProfileSettings",
+    component: ProfileSettingsView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/calendar",
     name: "Calendar",
     component: CalendarView,
@@ -124,6 +148,23 @@ const routes = [
       requiresAuth: true,
       requiresRole: 'youth'
     }
+  },
+  {
+    path: "/mood",
+    name: "MoodTracking",
+    component: MoodTrackingView,
+    meta: {
+      requiresAuth: true,
+      requiresRole: 'youth'
+    }
+  },
+  {
+    path: "/notifications",
+    name: "Notifications",
+    component: NotificationsView,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 

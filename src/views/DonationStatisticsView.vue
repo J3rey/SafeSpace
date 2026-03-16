@@ -98,7 +98,7 @@ export default {
     };
 
     const goToDonate = () => {
-      router.push("/DonateNow");
+      router.push("/donate-now");
     };
 
     const goToAboutUs = () => {

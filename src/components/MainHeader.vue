@@ -6,9 +6,7 @@
         <div
           class="col-12 col-lg-6 nav-left d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0"
         >
-          <div class="logo-placeholder me-2 me-sm-3 d-none d-sm-block">
-            Your Logo Here
-          </div>
+          <div class="brand-mark me-2 me-sm-3" aria-hidden="true">SS</div>
           <h1 class="mb-0 text-center text-lg-start fs-4 fs-sm-3 fs-md-2">
             SafeSpace
           </h1>
@@ -44,6 +42,10 @@
                 <small class="user-role">({{ currentUser.userType }})</small>
               </span>
             </div>
+            <button class="btn login-btn btn-sm" @click="goToProfile" aria-label="Go to profile settings">
+              <span class="d-none d-sm-inline">Profile</span>
+              <span class="d-sm-none">Me</span>
+            </button>
             <button class="btn logout-btn btn-sm" @click="handleLogout" aria-label="Logout from your account">
               <span class="d-none d-sm-inline">Logout</span>
               <span class="d-sm-none">Out</span>
@@ -58,7 +60,7 @@
           <div
             class="d-flex align-items-center justify-content-center justify-content-lg-start"
           >
-            <button class="home-icon me-3 me-lg-4" @click="goToHome" aria-label="Go to home page">
+            <button class="home-icon me-3 me-lg-4" type="button" @click="goToHome" aria-label="Go to home page">
               <span aria-hidden="true">🏠</span>
             </button>
 
@@ -83,6 +85,14 @@
                   >
                     Wellness Calendar
                   </div>
+                  <div 
+                    v-if="isAuthenticated && currentUser && currentUser.userType === 'youth'"
+                    class="dropdown-item" 
+                    @click="goToMood" 
+                    role="menuitem"
+                  >
+                    Mood Tracking
+                  </div>
                   <div class="dropdown-item" @click="goToInteractiveTools" role="menuitem">
                     Interactive Tools
                   </div>
@@ -93,9 +103,9 @@
                   For Community & Health Professionals
                 </button>
                 <div class="dropdown-content">
-                  <div class="dropdown-item">Resource A</div>
-                  <div class="dropdown-item">Resource B</div>
-                  <div class="dropdown-item">Resource C</div>
+                  <div class="dropdown-item" @click="goToSupportResources" role="menuitem">Support and Resources</div>
+                  <div class="dropdown-item" @click="goToCommunityChat" role="menuitem">Community Chat</div>
+                  <div class="dropdown-item" @click="goToAboutUs" role="menuitem">About SafeSpace</div>
                 </div>
               </div>
               <!-- Only show "For Educators" if user is advisor or not logged in -->
@@ -119,9 +129,9 @@
               <div class="dropdown nav-dropdown me-4">
                 <button class="btn dropdown-toggle">Support & Resources</button>
                 <div class="dropdown-content">
-                  <div class="dropdown-item">Support Resource 1</div>
-                  <div class="dropdown-item">Support Resource 2</div>
-                  <div class="dropdown-item">Support Resource 3</div>
+                  <div class="dropdown-item" @click="goToSupportResources">Support Hub</div>
+                  <div class="dropdown-item" @click="goToCommunityChat">Community Chat</div>
+                  <div class="dropdown-item" @click="goToHelpNow">Crisis Contacts</div>
                 </div>
               </div>
               <div class="dropdown nav-dropdown me-4">
@@ -181,6 +191,13 @@
                     >
                       Wellness Calendar
                     </div>
+                      <div 
+                        v-if="isAuthenticated && currentUser && currentUser.userType === 'youth'"
+                        class="dropdown-item" 
+                        @click="goToMood"
+                      >
+                        Mood Tracking
+                      </div>
                     <div class="dropdown-item" @click="goToInteractiveTools">
                       Interactive Tools
                     </div>
@@ -193,9 +210,9 @@
                     Community & Health
                   </button>
                   <div class="dropdown-content w-100">
-                    <div class="dropdown-item">Resource A</div>
-                    <div class="dropdown-item">Resource B</div>
-                    <div class="dropdown-item">Resource C</div>
+                    <div class="dropdown-item" @click="goToSupportResources">Support Hub</div>
+                    <div class="dropdown-item" @click="goToCommunityChat">Community Chat</div>
+                    <div class="dropdown-item" @click="goToAboutUs">About SafeSpace</div>
                   </div>
                 </div>
               </div>
@@ -227,9 +244,9 @@
                     Support & Resources
                   </button>
                   <div class="dropdown-content w-100">
-                    <div class="dropdown-item">Support Resource 1</div>
-                    <div class="dropdown-item">Support Resource 2</div>
-                    <div class="dropdown-item">Support Resource 3</div>
+                    <div class="dropdown-item" @click="goToSupportResources">Support Hub</div>
+                    <div class="dropdown-item" @click="goToCommunityChat">Community Chat</div>
+                    <div class="dropdown-item" @click="goToHelpNow">Crisis Contacts</div>
                   </div>
                 </div>
               </div>
@@ -265,7 +282,6 @@ import { useRouter } from "vue-router";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../main.js";
 import { getUserProfile, setCurrentUser, logoutUser } from "../services/authService.js";
-import DonateNowView from "@/views/DonateNowView.vue";
 
 export default {
   name: "MainHeader",
@@ -363,7 +379,7 @@ export default {
     };
 
     const goToDonateNow = () => {
-      router.push("/DonateNow");
+      router.push("/donate-now");
     };
 
     const goToAboutUs = () => {
@@ -374,12 +390,32 @@ export default {
       router.push("/donation-statistics");
     };
 
+    const goToSupportResources = () => {
+      router.push("/support-resources");
+    };
+
+    const goToCommunityChat = () => {
+      router.push("/community-chat");
+    };
+
+    const goToProfile = () => {
+      router.push("/profile");
+    };
+
     const goToAdminDashboard = () => {
       router.push("/admin/dashboard");
     };
 
     const goToCalendar = () => {
       router.push("/calendar");
+    };
+
+    const goToMood = () => {
+      router.push("/mood");
+    };
+
+    const goToNotifications = () => {
+      router.push("/notifications");
     };
 
     return {
@@ -400,8 +436,13 @@ export default {
       goToDonateNow,
       goToAboutUs,
       goToDonationStats,
+      goToSupportResources,
+      goToCommunityChat,
+      goToProfile,
       goToAdminDashboard,
       goToCalendar,
+      goToMood,
+      goToNotifications,
     };
   },
 };
@@ -424,7 +465,7 @@ export default {
 .nav-secondary {
   padding: 0.6rem 1rem;
   background-color: white;
-  border-bottom: 3px solid #007bff;
+  border-bottom: 3px solid var(--brand-primary, #2c6eb2);
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -435,10 +476,19 @@ export default {
   color: #333;
   cursor: pointer;
   transition: color 0.3s ease;
+  border: none;
+  background: transparent;
+  padding: 0.2rem;
 }
 
 .home-icon:hover {
-  color: #007bff;
+  color: var(--brand-primary, #2c6eb2);
+}
+
+.home-icon:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 110, 178, 0.35);
+  border-radius: 10px;
 }
 
 .nav-items {
@@ -462,7 +512,7 @@ export default {
 }
 
 .nav-dropdown button:hover {
-  color: #007bff;
+  color: var(--brand-primary, #2c6eb2);
 }
 
 .nav-dropdown .dropdown-arrow {
@@ -506,15 +556,15 @@ export default {
 .signup-btn,
 .login-btn,
 .logout-btn {
-  background-color: #e8e8e8;
-  border: none;
+  background-color: rgba(44, 110, 178, 0.12);
+  border: 1px solid rgba(44, 110, 178, 0.18);
   border-radius: 25px;
   padding: 0.6rem 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  color: #333;
+  color: #1f2937;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
 
@@ -522,7 +572,9 @@ export default {
 .donate-btn:hover,
 .signup-btn:hover,
 .login-btn:hover {
-  background-color: #d8d8d8;
+  background-color: rgba(44, 110, 178, 0.2);
+  color: #0f172a;
+  box-shadow: 0 8px 18px rgba(44, 110, 178, 0.16);
 }
 
 .logout-btn {
@@ -558,19 +610,23 @@ export default {
   font-size: 1rem;
 }
 
-.logo-placeholder {
-  color: #666;
-  font-size: 0.85rem;
-  border: 2px solid #999;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2c6eb2, #74a9d8);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 14px rgba(44, 110, 178, 0.2);
 }
 
 .mobile-menu-toggle {
   background-color: transparent;
-  border: 2px solid #0d6efd;
-  color: #0d6efd;
+  border: 2px solid var(--brand-primary, #2c6eb2);
+  color: var(--brand-primary, #2c6eb2);
   border-radius: 4px;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
@@ -579,7 +635,7 @@ export default {
 }
 
 .mobile-menu-toggle:hover {
-  background-color: #0d6efd;
+  background-color: var(--brand-primary, #2c6eb2);
   color: white;
 }
 
@@ -606,7 +662,7 @@ export default {
 }
 
 .admin-dashboard-btn {
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  background: linear-gradient(135deg, #2c6eb2 0%, #1f4e7e 100%);
   color: white !important;
   border: none;
   border-radius: 25px;
@@ -620,7 +676,7 @@ export default {
 }
 
 .admin-dashboard-btn:hover {
-  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  background: linear-gradient(135deg, #1f4e7e 0%, #15395d 100%);
   color: white !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
